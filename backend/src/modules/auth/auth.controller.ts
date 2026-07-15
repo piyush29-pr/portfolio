@@ -17,8 +17,8 @@ export class AuthController {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'none',
+      secure: isProduction,
+      sameSite: isProduction ? 'strict' : 'lax',
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
@@ -28,8 +28,8 @@ export class AuthController {
   async logout(req: Request, res: Response) {
     res.clearCookie('token', {
       httpOnly: true,
-      secure: false,
-      sameSite: 'none',
+      secure: isProduction,
+      sameSite: isProduction ? 'strict' : 'lax',
     });
     sendSuccess(res, { message: 'Logged out successfully' });
   }

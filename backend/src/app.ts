@@ -20,10 +20,15 @@ const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 
 const app: Application = express();
 
-// Global CORS should apply to everything, including static files
+// Setup CORS strictly based on environment variables
+const allowedOrigins = process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:3000', 'http://127.0.0.1:3000'];
 app.use(cors({
   origin: function (origin, callback) {
-    callback(null, true);
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
   },
   credentials: true
 }));
@@ -32,12 +37,7 @@ app.use(cors({
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 // Middleware
-app.use(helmet({ 
-  crossOriginResourcePolicy: { policy: 'cross-origin' },
-  crossOriginEmbedderPolicy: false,
-  contentSecurityPolicy: false,
-  xFrameOptions: false
-}));
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

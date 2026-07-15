@@ -11,7 +11,10 @@ declare global {
   }
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-do-not-use-in-prod';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is missing');
+}
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   try {
