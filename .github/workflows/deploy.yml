@@ -8,11 +8,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: ci-test-secret
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '24' # Upgraded to resolve Node 20 deprecation
           cache: 'npm'
