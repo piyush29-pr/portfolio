@@ -16,9 +16,14 @@ import { analyticsAdminRoutes } from './modules/analytics/analytics.routes';
 import { mediaAdminRoutes } from './modules/media/media.routes';
 import { authMiddleware } from './middleware/auth.middleware';
 
+import compression from 'compression';
+
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 
 const app: Application = express();
+
+// Enable compression for all responses
+app.use(compression());
 
 // Setup CORS strictly based on environment variables
 const allowedOrigins = process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:3000', 'http://127.0.0.1:3000'];
