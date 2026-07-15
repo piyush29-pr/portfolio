@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SkillCategory {
+  FRONTEND
+  BACKEND
+  DATABASE
+  DEVOPS
+  TOOLS
+  OTHER
+  MACHINE_LEARNING
+  DATA_SCIENCE
+  CLOUD
+  LANGUAGES
+  FRAMEWORKS
+  TESTING
+  SOFT_SKILLS
+}
+
+enum ProjectStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum MessageStatus {
+  UNREAD
+  READ
+  ARCHIVED
+}
+
+model Admin {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("admins")
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  summary     String
+  description String
+  techStack    String[]
+  highlights   String[]
+  images       String[]
+  githubUrl    String?
+  liveUrl      String?
+  caseStudyUrl String?
+  featured    Boolean       @default(false)
+  status      ProjectStatus @default(PUBLISHED)
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([slug])
+  @@index([status, featured])
+  @@map("projects")
+}
+
+model Certificate {
+  id            String    @id @default(cuid())
+  title         String
+  issuer        String
+  issueDate     DateTime
+  expiryDate    DateTime?
+  credentialUrl String?
+  imageUrl      String
+  sortOrder     Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("certificates")
+}
+
+model Skill {
+  id          String        @id @default(cuid())
+  name        String        @unique
+  category    SkillCategory
+  proficiency Int           @default(3)
+  iconUrl     String?
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+
+  @@index([category])
+  @@map("skills")
+}
+
+model Message {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  status    MessageStatus @default(UNREAD)
+  ipAddress String?
+  createdAt DateTime      @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("messages")
+}
+
+model ResumeDownload {
+  id           String   @id @default(cuid())
+  ipAddress    String?
+  country      String?
+  referrer     String?
+  downloadedAt DateTime @default(now())
+
+  @@index([downloadedAt])
+  @@map("resume_downloads")
+}
+
+enum ResumeFileType {
+  PDF
+  VIDEO
+}
+
+model ResumeFile {
+  id           String         @id @default(cuid())
+  type         ResumeFileType
+  filename     String         @unique
+  originalName String
+  mimeType     String
+  size         Int
+  uploadedAt   DateTime       @default(now())
+
+  @@map("resume_files")
+}
+
+model Visitor {
+  id        String   @id @default(cuid())
+  page      String
+  country   String?
+  device    String?
+  browser   String?
+  os        String?
+  ipAddress String?
+  timestamp DateTime @default(now())
+
+  @@index([page])
+  @@index([timestamp])
+  @@map("visitors")
+}

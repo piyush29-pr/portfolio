@@ -1,0 +1,31 @@
+name: Production Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+      - name: Install Dependencies
+        working-directory: ./backend
+        run: npm ci
+      - name: Run Tests
+        working-directory: ./backend
+        run: npx vitest run tests/smoke.test.ts
+
+  deploy-backend:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Production
+        run: echo "Deployment step to your hosting provider (e.g. Render, Railway, VPS) goes here."

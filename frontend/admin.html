@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Piyush Prajapati</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <script src="api.js?v=1.8" defer></script>
+  <script src="admin.js?v=1.9" defer></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    /* Admin specific styles */
+    .admin-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: var(--space-48) var(--space-24);
+    }
+    
+    #dashboard-view {
+      display: none;
+    }
+    
+    .metric-card {
+      background-color: var(--color-inset);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-24);
+      text-align: center;
+    }
+    .metric-card h2 {
+      font-size: 3rem;
+      margin: 0;
+      color: var(--color-primary);
+    }
+    .metric-card p {
+      color: var(--color-text-muted);
+      margin-top: var(--space-8);
+      font-weight: 600;
+    }
+    
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-24);
+    }
+    .admin-table th, .admin-table td {
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-16) var(--space-8);
+      text-align: left;
+    }
+    .admin-table th {
+      color: var(--color-text-muted);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .form-panel {
+      background-color: var(--color-inset);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-32);
+      margin-top: var(--space-48);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="home.html" class="nav-logo">Admin Portal</a>
+      <div id="admin-nav" style="display: none;">
+        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section" style="padding-top: 100px;">
+      <div class="admin-container">
+        
+        <!-- Login View -->
+        <div id="login-view" style="max-width: 400px; margin: 0 auto; text-align: center;">
+          <h2 class="mb-32">Admin Login</h2>
+          <form id="login-form">
+            <div class="form-group" style="text-align: left;">
+              <label class="form-label">Email</label>
+              <input type="email" id="login-email" class="form-input" required>
+            </div>
+            <div class="form-group" style="text-align: left;">
+              <label class="form-label">Password</label>
+              <input type="password" id="login-password" class="form-input" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%">Login</button>
+            <p id="login-error" style="color: var(--color-error); margin-top: var(--space-16); display: none;"></p>
+          </form>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view">
+          <div class="flex justify-between items-center mb-32">
+            <h1>Dashboard</h1>
+            <span class="badge badge-filled">Live System</span>
+          </div>
+
+          <!-- Tabs Navigation -->
+          <div class="flex gap-16 mb-32" style="border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-16);">
+            <button class="btn-ghost filter-btn active" data-tab="tab-projects" style="color: var(--color-text); text-decoration: underline;">Projects</button>
+            <button class="btn-ghost filter-btn" data-tab="tab-skills" style="color: var(--color-text-muted); text-decoration: none;">Skills</button>
+            <button class="btn-ghost filter-btn" data-tab="tab-certificates" style="color: var(--color-text-muted); text-decoration: none;">Certificates</button>
+            <button class="btn-ghost filter-btn" data-tab="tab-inbox" style="color: var(--color-text-muted); text-decoration: none;">Inbox</button>
+            <button class="btn-ghost filter-btn" data-tab="tab-resume" style="color: var(--color-text-muted); text-decoration: none;">Resume Files</button>
+          </div>
+
+          <!-- TAB: Projects (Default) -->
+          <div id="tab-projects" class="admin-tab">
+            <!-- Metrics -->
+            <div class="grid-3 mb-48">
+              <div class="metric-card">
+                <h2 id="metric-visitors">0</h2>
+                <p>Total Visitors</p>
+              </div>
+              <div class="metric-card">
+                <h2 id="metric-downloads">0</h2>
+                <p>Resume Downloads</p>
+              </div>
+              <div class="metric-card">
+                <h2 id="metric-messages" style="color: var(--color-secondary);">0</h2>
+                <p>Unread Messages</p>
+              </div>
+            </div>
+
+            <!-- Add Project Form -->
+            <div class="form-panel">
+              <h3 id="proj-form-title" class="mb-24">Add New Project</h3>
+              <form id="add-project-form">
+                <input type="hidden" id="proj-id">
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Image URL or Upload *</label>
+                    <div style="display:flex; gap: 8px;">
+                      <input type="text" id="proj-image" class="form-input" placeholder="https://... or upload file ->" required style="flex:1;">
+                      <input type="file" id="proj-image-file" accept="image/*" style="display:none;">
+                      <button type="button" class="btn btn-secondary" onclick="document.getElementById('proj-image-file').click()" style="padding: 0 16px; white-space: nowrap;">📁 Upload</button>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Title *</label>
+                    <input type="text" id="proj-title" class="form-input" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Summary *</label>
+                    <input type="text" id="proj-summary" class="form-input" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Tech Stack (comma separated)</label>
+                  <input type="text" id="proj-tags" class="form-input" placeholder="Python, SQL, Power BI">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Highlights (One per line)</label>
+                  <textarea id="proj-highlights" class="form-input" rows="3" placeholder="94% Accuracy&#10;RAG Pipeline&#10;Docker"></textarea>
+                </div>
+
+                <div class="grid-3">
+                  <div class="form-group">
+                    <label class="form-label">Live Demo URL</label>
+                    <input type="text" id="proj-live" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">GitHub URL</label>
+                    <input type="text" id="proj-github" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Case Study URL</label>
+                    <input type="text" id="proj-casestudy" class="form-input" placeholder="project-detail.html?slug=...">
+                  </div>
+                </div>
+                
+                <div class="flex gap-16 mt-16 mb-16" style="align-items: center;">
+                  <label style="display: flex; align-items: center; gap: 8px; color: var(--color-text); cursor: pointer;">
+                    <input type="checkbox" id="proj-published" checked> Published
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; color: var(--color-text); cursor: pointer;">
+                    <input type="checkbox" id="proj-featured"> Featured (Show on Home)
+                  </label>
+                </div>
+
+                <div class="flex gap-16 mt-24" style="align-items: center;">
+                  <button type="submit" id="proj-submit-btn" class="btn btn-primary">Create Project</button>
+                  <button type="button" id="proj-cancel-btn" class="btn btn-secondary" style="display: none;">Cancel Edit</button>
+                  <div id="proj-success" style="color: var(--color-success); display: none; align-items: center; gap: 8px;">
+                    <i data-lucide="check-circle"></i> Saved!
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Projects Table -->
+            <div class="form-panel" style="margin-top: var(--space-24);">
+              <h3 class="mb-24">Existing Projects</h3>
+              <div style="overflow-x: auto;">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Category</th>
+                      <th>Status</th>
+                      <th>Featured</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="projects-tbody">
+                    <tr>
+                      <td colspan="5" style="text-align: center; color: var(--color-text-muted);">Loading projects...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: Skills -->
+          <div id="tab-skills" class="admin-tab" style="display: none;">
+            <div class="form-panel">
+              <h3 id="skill-form-title" class="mb-24">Add New Skill</h3>
+              <form id="add-skill-form">
+                <input type="hidden" id="skill-id">
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Skill Name *</label>
+                    <input type="text" id="skill-name" class="form-input" required placeholder="e.g. Docker">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Category *</label>
+                     <select id="skill-category" class="form-input" required style="background: transparent; color: inherit; padding: 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); outline: none;">
+                       <optgroup label="── Core Skills ──" style="color:#888; font-size:11px;"></optgroup>
+                       <option value="LANGUAGES" style="color: #000;">🔤 Languages</option>
+                       <option value="FRAMEWORKS" style="color: #000;">🧩 Frameworks & Libraries</option>
+                       <option value="FRONTEND" style="color: #000;">🖥️ Frontend</option>
+                       <option value="BACKEND" style="color: #000;">⚙️ Backend</option>
+                       <option value="DATABASE" style="color: #000;">🗄️ Database</option>
+                       <optgroup label="── Specialisations ──" style="color:#888; font-size:11px;"></optgroup>
+                       <option value="MACHINE_LEARNING" style="color: #000;">🤖 Machine Learning</option>
+                       <option value="DATA_SCIENCE" style="color: #000;">📊 Data Science & BI</option>
+                       <option value="CLOUD" style="color: #000;">☁️ Cloud Platforms</option>
+                       <option value="DEVOPS" style="color: #000;">🚀 DevOps & CI/CD</option>
+                       <optgroup label="── Other ──" style="color:#888; font-size:11px;"></optgroup>
+                       <option value="TESTING" style="color: #000;">🧪 Testing & QA</option>
+                       <option value="TOOLS" style="color: #000;">🛠️ Tools & Utilities</option>
+                       <option value="SOFT_SKILLS" style="color: #000;">🤝 Soft Skills</option>
+                       <option value="OTHER" style="color: #000;">📌 Other</option>
+                     </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Proficiency (1-5)</label>
+                  <input type="number" id="skill-proficiency" class="form-input" min="1" max="5" value="3" required>
+                </div>
+                <div class="flex gap-16 mt-24" style="align-items: center;">
+                  <button type="submit" id="skill-submit-btn" class="btn btn-primary">Create Skill</button>
+                  <button type="button" id="skill-cancel-btn" class="btn btn-secondary" style="display: none;">Cancel Edit</button>
+                  <div id="skill-success" style="color: var(--color-success); display: none; align-items: center; gap: 8px;">
+                    <i data-lucide="check-circle"></i> Saved!
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Skills Table -->
+            <div class="form-panel" style="margin-top: var(--space-24);">
+              <h3 class="mb-24">Existing Skills</h3>
+              <div style="overflow-x: auto;">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>Proficiency</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="skills-tbody">
+                    <tr>
+                      <td colspan="4" style="text-align: center; color: var(--color-text-muted);">Loading skills...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: Certificates -->
+          <div id="tab-certificates" class="admin-tab" style="display: none;">
+            <div class="form-panel">
+              <h3 id="cert-form-title" class="mb-24">Add New Certificate</h3>
+              <form id="add-certificate-form">
+                <input type="hidden" id="cert-id">
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Title *</label>
+                    <input type="text" id="cert-title" class="form-input" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Issuer *</label>
+                    <input type="text" id="cert-issuer" class="form-input" required>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Issue Date *</label>
+                    <input type="date" id="cert-issue-date" class="form-input" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Image URL or Upload *</label>
+                    <div style="display:flex; gap: 8px;">
+                      <input type="text" id="cert-image" class="form-input" required placeholder="https://... or upload file ->" style="flex:1;">
+                      <input type="file" id="cert-image-file" accept="image/*" style="display:none;">
+                      <button type="button" class="btn btn-secondary" onclick="document.getElementById('cert-image-file').click()" style="padding: 0 16px; white-space: nowrap;">📁 Upload</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex gap-16 mt-24" style="align-items: center;">
+                  <button type="submit" id="cert-submit-btn" class="btn btn-primary">Create Certificate</button>
+                  <button type="button" id="cert-cancel-btn" class="btn btn-secondary" style="display: none;">Cancel Edit</button>
+                  <div id="cert-success" style="color: var(--color-success); display: none; align-items: center; gap: 8px;">
+                    <i data-lucide="check-circle"></i> Saved!
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Certificates Table -->
+            <div class="form-panel" style="margin-top: var(--space-24);">
+              <h3 class="mb-24">Existing Certificates</h3>
+              <div style="overflow-x: auto;">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Issuer</th>
+                      <th>Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="certificates-tbody">
+                    <tr>
+                      <td colspan="4" style="text-align: center; color: var(--color-text-muted);">Loading certificates...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: Inbox -->
+          <div id="tab-inbox" class="admin-tab" style="display: none;">
+            <div class="form-panel">
+              <h3 class="mb-24">Messages</h3>
+              <div style="overflow-x: auto;">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Message</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="messages-tbody">
+                    <tr>
+                      <td colspan="5" style="text-align: center; color: var(--color-text-muted);">Loading messages...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: Resume Files -->
+          <div id="tab-resume" class="admin-tab" style="display: none;">
+
+            <!-- Upload PDF Section -->
+            <div class="form-panel">
+              <div style="display:flex; align-items:center; gap:12px; margin-bottom: var(--space-24);">
+                <i data-lucide="file-text" style="color:var(--color-primary);width:24px;height:24px;"></i>
+                <h3 style="margin:0;">Upload Resume PDF</h3>
+              </div>
+              <p style="color:var(--color-text-muted); margin-bottom: var(--space-24); font-size:14px;">Upload your latest resume as a PDF file. Max size: 100 MB.</p>
+              <div id="pdf-drop-zone" style="
+                border: 2px dashed var(--color-border);
+                border-radius: var(--radius-md);
+                padding: 40px;
+                text-align: center;
+                cursor: pointer;
+                transition: border-color 0.2s, background 0.2s;
+                margin-bottom: var(--space-16);
+              " ondragover="event.preventDefault(); this.style.borderColor='var(--color-primary)'; this.style.background='rgba(var(--color-primary-rgb,99,102,241),0.05)';" ondragleave="this.style.borderColor='var(--color-border)'; this.style.background='';" ondrop="handlePdfDrop(event)">
+                <i data-lucide="upload-cloud" style="width:40px;height:40px;color:var(--color-text-muted);margin-bottom:12px;"></i>
+                <p style="color:var(--color-text-muted); margin:0 0 8px;">Drag & drop your PDF here, or</p>
+                <label class="btn btn-secondary" style="cursor:pointer; display:inline-block;">
+                  Browse File
+                  <input type="file" id="pdf-file-input" accept=".pdf,application/pdf" style="display:none;" onchange="handlePdfSelect(this)">
+                </label>
+                <p id="pdf-selected-name" style="margin-top:12px; color:var(--color-primary); font-size:14px; display:none;"></p>
+              </div>
+              <div class="flex gap-16" style="align-items:center;">
+                <button id="pdf-upload-btn" class="btn btn-primary" onclick="uploadResumeFile('PDF')" disabled>Upload PDF</button>
+                <div id="pdf-upload-progress" style="display:none; color:var(--color-text-muted); font-size:14px;">Uploading…</div>
+                <div id="pdf-upload-success" style="display:none; color:var(--color-success); align-items:center; gap:8px;">
+                  <i data-lucide="check-circle"></i> Uploaded!
+                </div>
+              </div>
+            </div>
+
+            <!-- Upload Video Section -->
+            <div class="form-panel" style="margin-top: var(--space-24);">
+              <div style="display:flex; align-items:center; gap:12px; margin-bottom: var(--space-24);">
+                <i data-lucide="video" style="color:var(--color-secondary);width:24px;height:24px;"></i>
+                <h3 style="margin:0;">Upload Video Resume</h3>
+              </div>
+              <p style="color:var(--color-text-muted); margin-bottom: var(--space-24); font-size:14px;">Upload a video resume (MP4, WebM, MOV, AVI). Max size: 100 MB.</p>
+              <div id="video-drop-zone" style="
+                border: 2px dashed var(--color-border);
+                border-radius: var(--radius-md);
+                padding: 40px;
+                text-align: center;
+                cursor: pointer;
+                transition: border-color 0.2s, background 0.2s;
+                margin-bottom: var(--space-16);
+              " ondragover="event.preventDefault(); this.style.borderColor='var(--color-secondary)'; this.style.background='rgba(var(--color-secondary-rgb,139,92,246),0.05)';" ondragleave="this.style.borderColor='var(--color-border)'; this.style.background='';" ondrop="handleVideoDrop(event)">
+                <i data-lucide="film" style="width:40px;height:40px;color:var(--color-text-muted);margin-bottom:12px;"></i>
+                <p style="color:var(--color-text-muted); margin:0 0 8px;">Drag & drop your video here, or</p>
+                <label class="btn btn-secondary" style="cursor:pointer; display:inline-block;">
+                  Browse File
+                  <input type="file" id="video-file-input" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo" style="display:none;" onchange="handleVideoSelect(this)">
+                </label>
+                <p id="video-selected-name" style="margin-top:12px; color:var(--color-secondary); font-size:14px; display:none;"></p>
+              </div>
+              <div class="flex gap-16" style="align-items:center;">
+                <button id="video-upload-btn" class="btn btn-primary" onclick="uploadResumeFile('VIDEO')" disabled style="background:var(--color-secondary); border-color:var(--color-secondary);">Upload Video</button>
+                <div id="video-upload-progress" style="display:none; color:var(--color-text-muted); font-size:14px;">Uploading…</div>
+                <div id="video-upload-success" style="display:none; color:var(--color-success); align-items:center; gap:8px;">
+                  <i data-lucide="check-circle"></i> Uploaded!
+                </div>
+              </div>
+            </div>
+
+            <!-- Existing Resume Files Table -->
+            <div class="form-panel" style="margin-top: var(--space-24);">
+              <h3 class="mb-24">Uploaded Resume Files</h3>
+              <div style="overflow-x: auto;">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Original Name</th>
+                      <th>Size</th>
+                      <th>Uploaded</th>
+                      <th>Preview / Download</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="resume-files-tbody">
+                    <tr>
+                      <td colspan="6" style="text-align: center; color: var(--color-text-muted);">Loading files…</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Custom Confirm Modal (replaces browser confirm() which gets blocked) -->
+  <div id="confirm-modal" style="
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  ">
+    <div style="
+      background: var(--color-surface, #1a1a2e);
+      border: 1px solid var(--color-border, #333);
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    ">
+      <p id="confirm-modal-msg" style="font-size:16px; margin-bottom: 24px; color: var(--color-text, #fff); line-height:1.5;"></p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button id="confirm-cancel-btn" class="btn btn-secondary" style="min-width:100px">Cancel</button>
+        <button id="confirm-ok-btn" class="btn btn-primary" style="min-width:100px; background: var(--color-error, #e53e3e); border-color: var(--color-error, #e53e3e);">Delete</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

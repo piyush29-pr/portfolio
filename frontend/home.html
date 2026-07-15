@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piyush Prajapati — Machine Learning Engineer & Data/BI</title>
+  <meta name="description" content="Portfolio of Piyush Prajapati, a Machine Learning Engineer focusing on data systems and BI. View projects, architecture, and dashboards.">
+  
+  <!-- Fonts: IBM Plex Mono & IBM Plex Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- CSS & JS -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="api.js" defer></script>
+  <script src="app.js" defer></script>
+  
+  <!-- Icons: Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar">
+    <div class="container navbar-inner">
+      <a href="home.html" class="nav-logo" aria-label="Home"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></a>
+      
+      <div id="nav-links" class="nav-links">
+        <a href="home.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="contact.html" class="btn btn-primary" style="margin-left: var(--space-16)">Contact</a>
+      </div>
+      
+      <button id="hamburger" class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section section">
+      <div class="node-graph-bg">
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <!-- A subtle decorative node graph representation -->
+          <circle cx="10%" cy="20%" r="4" fill="var(--color-border)" />
+          <circle cx="90%" cy="30%" r="4" fill="var(--color-border)" />
+          <circle cx="30%" cy="80%" r="4" fill="var(--color-border)" />
+          <circle cx="70%" cy="70%" r="4" fill="var(--color-border)" />
+          <circle cx="50%" cy="10%" r="4" fill="var(--color-border)" />
+          <path d="M10% 20% L50% 10% L90% 30% L70% 70% L30% 80% Z" stroke="var(--color-border)" stroke-width="1" fill="none" />
+        </svg>
+      </div>
+      <div class="container flex-col gap-24 reveal-up">
+        <span class="label-code" style="color: var(--color-text-muted)">MACHINE LEARNING ENGINEER & DATA PRACTITIONER</span>
+        <h1 class="display">Building the system.<br>Reading the data.</h1>
+        <p class="body-large" style="max-width: 600px; color: var(--color-text-muted)">
+          Piyush Prajapati is a versatile builder who moves fluently between building robust service architectures and designing insightful data pipelines.
+        </p>
+        <div class="flex gap-16 mt-16" style="flex-wrap: wrap;">
+          <a href="projects.html" class="btn btn-primary">View Projects</a>
+          <a href="resume.html" class="btn btn-secondary">Download Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="section" style="background-color: var(--color-inset)">
+      <div class="container reveal-up">
+        <div class="flex justify-between items-center" style="margin-bottom: var(--space-48)">
+          <h2>Featured Work</h2>
+          <a href="projects.html" class="link-amber label-code">See all projects →</a>
+        </div>
+        
+        <div id="featured-projects-grid" class="grid-3">
+          <!-- Project 1 (SaaS Business Analytics) -->
+          <article class="card card-data-analytics reveal-up">
+            <img src="images/project1.png" alt="SaaS Business Analytics Dashboard" style="margin: -24px -24px 24px -24px; width: calc(100% + 48px); max-width: none; height: 180px; object-fit: cover; border-radius: 5px 5px 0 0; border-bottom: 1px solid var(--color-border); display: block;">
+            <div class="card-content">
+              <span class="tag-data-analytics mb-8">Data Analytics</span>
+              <h4 class="mt-8 mb-8">SaaS Business Analytics Dashboard</h4>
+              <p class="body-small mb-16">The number of users is increasing, but revenue is not growing.</p>
+              <div class="badge-group mb-16">
+                <span class="badge badge-filled">SQL</span>
+                <span class="badge badge-filled">Python</span>
+                <span class="badge badge-filled">Power BI</span>
+              </div>
+            </div>
+            <div class="card-footer flex justify-between items-center">
+              <a href="project-detail.html" class="link-amber label-code">Read Case Study</a>
+              <div class="flex gap-8" style="color: var(--color-text-muted)">
+                <a href="#" aria-label="GitHub Repo"><i data-lucide="github" width="18"></i></a>
+                <a href="#" aria-label="Live Demo"><i data-lucide="external-link" width="18"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 (E-commerce Customer Analytics) -->
+          <article class="card card-data-analytics reveal-up">
+            <img src="images/project2.png" alt="E-commerce Customer Analytics" style="margin: -24px -24px 24px -24px; width: calc(100% + 48px); max-width: none; height: 180px; object-fit: cover; border-radius: 5px 5px 0 0; border-bottom: 1px solid var(--color-border); display: block;">
+            <div class="card-content">
+              <span class="tag-data-analytics mb-8">Data Analytics</span>
+              <h4 class="mt-8 mb-8">E-commerce Customer Analytics</h4>
+              <p class="body-small mb-16">Which customers generate the highest revenue?</p>
+              <div class="badge-group mb-16">
+                <span class="badge badge-filled">Python</span>
+                <span class="badge badge-filled">SQL</span>
+                <span class="badge badge-filled">RFM Analysis</span>
+              </div>
+            </div>
+            <div class="card-footer flex justify-between items-center">
+              <a href="project-detail.html" class="link-teal label-code">Read Case Study</a>
+            </div>
+          </article>
+
+          <!-- Project 3 (Healthcare Operations Dashboard) -->
+          <article class="card card-data-analytics reveal-up">
+            <img src="images/project3.png" alt="Healthcare Operations Dashboard" style="margin: -24px -24px 24px -24px; width: calc(100% + 48px); max-width: none; height: 180px; object-fit: cover; border-radius: 5px 5px 0 0; border-bottom: 1px solid var(--color-border); display: block;">
+            <div class="card-content">
+              <span class="tag-data-analytics mb-8">Data Analytics</span>
+              <h4 class="mt-8 mb-8">Healthcare Operations Dashboard</h4>
+              <p class="body-small mb-16">How can hospital waiting times be reduced?</p>
+              <div class="badge-group mb-16">
+                <span class="badge badge-filled">Power BI</span>
+                <span class="badge badge-filled">Python</span>
+                <span class="badge badge-filled">SQL</span>
+              </div>
+            </div>
+            <div class="card-footer flex justify-between items-center">
+              <a href="project-detail.html" class="link-amber label-code">Read Case Study</a>
+              <div class="flex gap-8" style="color: var(--color-text-muted)">
+                <a href="#" aria-label="GitHub Repo"><i data-lucide="github" width="18"></i></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack / Skills Strip -->
+    <section class="section">
+      <div class="container flex-col items-center text-center reveal-up">
+        <h3 class="mb-24" style="margin-bottom: var(--space-32)">Core Capabilities</h3>
+        <div id="skills-strip" class="badge-group justify-center" style="max-width: 800px; justify-content: center;">
+          <span class="badge">React / Vue</span>
+          <span class="badge">Node.js / Express</span>
+          <span class="badge badge-filled">Python / Pandas</span>
+          <span class="badge">PostgreSQL</span>
+          <span class="badge badge-filled">Tableau / Power BI</span>
+          <span class="badge">AWS / Docker</span>
+          <span class="badge">GraphQL</span>
+          <span class="badge badge-filled">dbt / Snowflake</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="section" style="background-color: var(--color-inset); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+      <div class="container flex-col items-center text-center reveal-up">
+        <h2>Ready to build together?</h2>
+        <p class="body-large mt-16 mb-32" style="color: var(--color-text-muted); max-width: 500px; margin: var(--space-16) auto var(--space-32);">
+          I am currently open to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+        </p>
+        <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="padding: var(--space-48) 0; text-align: center; border-top: 1px solid var(--color-border);">
+    <div class="container flex-col items-center gap-16">
+      <div class="nav-logo"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></div>
+      <div class="flex gap-16">
+        <a href="https://github.com/piyush29-pr" target="_blank" aria-label="GitHub" class="link-amber"><i data-lucide="github"></i></a>
+        <a href="https://www.linkedin.com/in/piyush1234567" target="_blank" aria-label="LinkedIn" class="link-amber"><i data-lucide="linkedin"></i></a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piyushprajapati292003@gmail.com" target="_blank" rel="noopener" aria-label="Email" class="link-amber"><i data-lucide="mail"></i></a>
+      </div>
+      <p class="body-small">© 2026 <a href="admin.html" style="color: inherit; text-decoration: none; cursor: default;">Piyush Prajapati</a>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

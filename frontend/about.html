@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Piyush Prajapati</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS & JS -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="api.js" defer></script>
+  <script src="app.js" defer></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .timeline-node {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--color-signal-amber);
+      position: absolute;
+      left: -6px;
+      top: 6px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: var(--space-32);
+      border-left: 1px solid var(--color-border);
+      padding-bottom: var(--space-48);
+    }
+
+    .timeline-item:last-child {
+      border-left-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar">
+    <div class="container navbar-inner">
+      <a href="home.html" class="nav-logo" aria-label="Home"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></a>
+
+      <div id="nav-links" class="nav-links">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="contact.html" class="btn btn-primary" style="margin-left: var(--space-16)">Contact</a>
+      </div>
+
+      <button id="hamburger" class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Intro Block & Bio -->
+    <section class="section" style="padding-top: calc(var(--space-96) + 80px);">
+      <div class="container grid-3 reveal-up">
+        <div style="grid-column: span 1;">
+          <img src="images/portfolio_photo.png" alt="Piyush Prajapati" style="width: 100%; aspect-ratio: 1; border-radius: var(--radius-md); border: 1px solid var(--color-border); object-fit: cover; display: block;">
+        </div>
+
+        <div style="grid-column: span 2; display: flex; flex-direction: column; justify-content: center;">
+          <h1 class="mb-16">Hi, I'm Piyush Prajapati.</h1>
+          <p class="body-large mb-16" style="color: var(--color-text-muted);">
+            I am a Machine Learning Engineer who loves getting deep into data. My career path hasn't been a straight line, but a
+            continuous loop between building features that generate data and building pipelines that make sense of it.
+          </p>
+          <p class="body-large" style="color: var(--color-text-muted);">
+            When I'm not untangling a messy schema or optimizing an API response, you can usually find me reading about
+            systems design, experimenting with new visualization tools, or trying to brew the perfect cup of coffee.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Grid -->
+    <section class="section" style="background-color: var(--color-inset);">
+      <div class="container reveal-up">
+        <h2 class="mb-32">Toolkit</h2>
+        <!-- Skills rendered dynamically from API -->
+        <div id="skills-grouped-grid" class="grid-3">
+          <!-- Loading skeleton -->
+          <div style="grid-column:1/-1; color:var(--color-text-muted); text-align:center; padding: var(--space-32) 0;">
+            <span style="opacity:0.6;">Loading skills…</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="section" style="border-top: 1px solid var(--color-border); text-align: center;">
+      <div class="container reveal-up">
+        <h3 class="mb-24">Sound like a fit?</h3>
+        <a href="contact.html" class="btn btn-primary">Let's Talk</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="padding: var(--space-48) 0; text-align: center; border-top: 1px solid var(--color-border);">
+    <div class="container flex-col items-center gap-16">
+      <div class="nav-logo"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></div>
+      <div class="flex gap-16">
+        <a href="https://github.com/PiyushPrajapati" target="_blank" aria-label="GitHub" class="link-amber"><i
+            data-lucide="github"></i></a>
+        <a href="https://linkedin.com/in/PiyushPrajapati" target="_blank" aria-label="LinkedIn" class="link-amber"><i
+            data-lucide="linkedin"></i></a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piyushprajapati292003@gmail.com" target="_blank" rel="noopener" aria-label="Email" class="link-amber"><i
+            data-lucide="mail"></i></a>
+      </div>
+      <p class="body-small">© 2026 <a href="admin.html" style="color: inherit; text-decoration: none; cursor: default;">Piyush Prajapati</a>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
