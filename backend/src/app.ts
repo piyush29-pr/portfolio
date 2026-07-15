@@ -79,7 +79,7 @@ app.use((req: Request, res: Response) => {
 // Global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   logger.error(err);
-  res.status(err.status || 500).json({
+  res.status(err.statusCode || err.status || 500).json({
     error: err.message || 'Internal Server Error',
   });
 });

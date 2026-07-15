@@ -12,8 +12,6 @@ export class MessageService {
   async createMessage(data: z.infer<typeof createMessageSchema>, ipAddress?: string): Promise<Message> {
     const message = await messageRepository.create({ ...data, ipAddress });
     
-    // TODO: Trigger Resend email notification asynchronously here
-    
     return message;
   }
 
