@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Project Name] — Piyush Prajapati, Machine Learning Engineer</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS & JS -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="api.js" defer></script>
+  <script src="app.js" defer></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar">
+    <div class="container navbar-inner">
+      <a href="home.html" class="nav-logo" aria-label="Home"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></a>
+
+      <div id="nav-links" class="nav-links">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="projects.html" class="nav-link active">Projects</a>
+        <a href="contact.html" class="btn btn-primary" style="margin-left: var(--space-16)">Contact</a>
+      </div>
+
+      <button id="hamburger" class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Header -->
+    <section class="section" style="padding-top: calc(var(--space-96) + 80px); padding-bottom: var(--space-48)">
+      <div class="container flex-col reveal-up">
+        <div class="mb-16">
+          <a href="projects.html" class="label-code" style="color: var(--color-text-muted);">Projects</a>
+          <span style="color: var(--color-text-muted); margin: 0 var(--space-8);">/</span>
+          <span class="label-code" style="color: var(--color-text);">[Project Name]</span>
+        </div>
+
+        <h1 class="display">[Project Name Placeholder]</h1>
+        
+        <!-- External Links Row -->
+        <div class="flex gap-16 items-center mt-16 mb-32" style="flex-wrap: wrap;">
+          <a href="#" class="btn btn-secondary" style="padding: var(--space-8) var(--space-12); min-height: auto;"><i data-lucide="github" width="16"></i> GitHub Repository</a>
+          <a href="#" class="btn btn-primary" style="padding: var(--space-8) var(--space-12); min-height: auto;"><i data-lucide="external-link" width="16"></i> Live Demo</a>
+          <a href="#" class="btn btn-secondary" style="padding: var(--space-8) var(--space-12); min-height: auto;"><i data-lucide="file-text" width="16"></i> PDF Case Study</a>
+          <a href="#" class="btn btn-secondary" style="padding: var(--space-8) var(--space-12); min-height: auto;"><i data-lucide="presentation" width="16"></i> Recruiter Presentation</a>
+          <a href="#" class="btn btn-secondary" style="padding: var(--space-8) var(--space-12); min-height: auto;"><i data-lucide="link" width="16"></i> Portfolio Integration</a>
+        </div>
+
+        <div class="badge-group">
+          <span class="badge badge-filled">SQL</span>
+          <span class="badge badge-filled">Python</span>
+          <span class="badge badge-filled">Power BI</span>
+          <span class="badge badge-filled">Statistics</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Tabs -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container reveal-up">
+
+        <div class="tab-list" role="tablist">
+          <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-context" id="tab-context">Context</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-execution" id="tab-execution">Execution</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-deliverables" id="tab-deliverables">Deliverables</button>
+        </div>
+
+        <!-- Panel: Context -->
+        <div id="panel-context" class="tab-panel" role="tabpanel" aria-labelledby="tab-context">
+          <h3 class="mb-16">Business Problem</h3>
+          <p class="body-large mb-32" style="max-width: 800px; color: var(--color-text-muted);">
+            [Explain the core business problem here. For example: "Company users are growing, but revenue is stagnant."]
+          </p>
+
+          <h3 class="mb-16">Stakeholder Requirements</h3>
+          <p class="body-large mb-32" style="max-width: 800px; color: var(--color-text-muted);">
+            [List what the stakeholders (e.g., Marketing Team, Product Managers, Executives) asked for.]
+          </p>
+
+          <h3 class="mb-16">KPI Design</h3>
+          <p class="body-large mb-32" style="max-width: 800px; color: var(--color-text-muted);">
+            [Detail the Key Performance Indicators identified to measure success, such as MRR, CAC, LTV, Churn Rate, etc.]
+          </p>
+        </div>
+
+        <!-- Panel: Execution -->
+        <div id="panel-execution" class="tab-panel" hidden role="tabpanel" aria-labelledby="tab-execution">
+          <h3 class="mb-16">SQL Analysis</h3>
+          <p class="body-large mb-16" style="max-width: 800px; color: var(--color-text-muted);">
+            [Describe the SQL queries used to extract and transform the data from the database.]
+          </p>
+          <div class="card mb-32" style="padding: var(--space-48); text-align: center;">
+            <p class="label-code" style="color: var(--color-text-muted);">[Placeholder for SQL Code Snippet]</p>
+          </div>
+
+          <h3 class="mb-16">Python EDA</h3>
+          <p class="body-large mb-16" style="max-width: 800px; color: var(--color-text-muted);">
+            [Explain the Exploratory Data Analysis conducted in Python (Pandas, Matplotlib, Seaborn).]
+          </p>
+          <div class="card mb-32" style="padding: var(--space-48); text-align: center;">
+            <p class="label-code" style="color: var(--color-text-muted);">[Placeholder for EDA Charts / Jupyter Notebook Export]</p>
+          </div>
+
+          <h3 class="mb-16">Statistical Analysis</h3>
+          <p class="body-large mb-32" style="max-width: 800px; color: var(--color-text-muted);">
+            [Detail any statistical tests, correlation matrices, or regression models used to find deeper insights.]
+          </p>
+
+          <h3 class="mb-16">Interactive Power BI Dashboard</h3>
+          <p class="body-large mb-16" style="max-width: 800px; color: var(--color-text-muted);">
+            [Provide a summary of the dashboard layout, data models, and interactive elements built in Power BI.]
+          </p>
+          <div class="card mb-32" style="padding: var(--space-48); text-align: center; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
+            <p class="label-code" style="color: var(--color-text-muted);">[Placeholder: Power BI Dashboard Screenshot or Embed iframe]</p>
+          </div>
+        </div>
+
+        <!-- Panel: Deliverables -->
+        <div id="panel-deliverables" class="tab-panel" hidden role="tabpanel" aria-labelledby="tab-deliverables">
+          <h3 class="mb-16">Executive Summary</h3>
+          <p class="body-large mb-32" style="max-width: 800px; color: var(--color-text-muted);">
+            [A high-level summary of the findings tailored for C-suite executives, highlighting the most critical insights.]
+          </p>
+
+          <h3 class="mb-16">Business Recommendations</h3>
+          <ul class="body-large mb-32" style="max-width: 800px; padding-left: var(--space-24); color: var(--color-text-muted);">
+            <li class="mb-8">[Recommendation 1 based on data]</li>
+            <li class="mb-8">[Recommendation 2 based on data]</li>
+            <li class="mb-8">[Recommendation 3 based on data]</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Next / Previous Nav -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container reveal-up">
+        <div class="flex justify-between items-center"
+          style="border-top: 1px solid var(--color-border); padding-top: var(--space-32);">
+          <a href="#" class="link-amber label-code">← Previous Project</a>
+          <a href="#" class="link-amber label-code">Next Project →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="padding: var(--space-48) 0; text-align: center; border-top: 1px solid var(--color-border);">
+    <div class="container flex-col items-center gap-16">
+      <div class="nav-logo"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></div>
+      <div class="flex gap-16">
+        <a href="https://github.com/piyush29-pr" target="_blank" aria-label="GitHub" class="link-amber"><i
+            data-lucide="github"></i></a>
+        <a href="https://www.linkedin.com/in/piyush1234567" target="_blank" aria-label="LinkedIn" class="link-amber"><i
+            data-lucide="linkedin"></i></a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piyushprajapati292003@gmail.com" target="_blank" rel="noopener" aria-label="Email" class="link-amber"><i
+            data-lucide="mail"></i></a>
+      </div>
+      <p class="body-small">© 2026 Piyush Prajapati. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>

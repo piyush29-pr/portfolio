@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Piyush Prajapati</title>
+  <meta name="description" content="View engineering and data/BI projects by Piyush Prajapati.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- CSS & JS -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="api.js" defer></script>
+  <script src="app.js" defer></script>
+  
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar">
+    <div class="container navbar-inner">
+      <a href="home.html" class="nav-logo" aria-label="Home"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></a>
+      
+      <div id="nav-links" class="nav-links">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="projects.html" class="nav-link active">Projects</a>
+        <a href="contact.html" class="btn btn-primary" style="margin-left: var(--space-16)">Contact</a>
+      </div>
+      
+      <button id="hamburger" class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Header -->
+    <section class="section" style="padding-top: calc(var(--space-96) + 80px); padding-bottom: var(--space-48)">
+      <div class="container flex-col gap-16 reveal-up">
+        <h1 class="display">Projects</h1>
+        <p class="body-large" style="color: var(--color-text-muted); max-width: 600px;">
+          A collection of systems architecture and data insights.
+        </p>
+        
+        <!-- Filters -->
+        <div class="flex gap-16 mt-32" id="project-filters" style="border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-16);">
+          <button class="btn-ghost filter-btn active" data-filter="all" style="color: var(--color-text); text-decoration: underline;">All</button>
+          <button class="btn-ghost filter-btn" data-filter="machine-learning" style="color: var(--color-text-muted); text-decoration: none;">Machine Learning</button>
+          <button class="btn-ghost filter-btn" data-filter="data-analytics" style="color: var(--color-text-muted); text-decoration: none;">Data Analytics</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grid: populated dynamically by app.js from the API -->
+    <section class="section" style="padding-top: 0;">
+      <div id="projects-grid" class="container grid-3">
+        <!-- Loading state -->
+        <div class="card reveal-up visible" style="min-height:220px;display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);grid-column:1/-1">
+          Loading projects…
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="padding: var(--space-48) 0; text-align: center; border-top: 1px solid var(--color-border);">
+    <div class="container flex-col items-center gap-16">
+      <div class="nav-logo"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></div>
+      <div class="flex gap-16">
+        <a href="https://github.com/piyush29-pr" target="_blank" aria-label="GitHub" class="link-amber"><i data-lucide="github"></i></a>
+        <a href="https://www.linkedin.com/in/piyush1234567" target="_blank" aria-label="LinkedIn" class="link-amber"><i data-lucide="linkedin"></i></a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piyushprajapati292003@gmail.com" target="_blank" rel="noopener" aria-label="Email" class="link-amber"><i data-lucide="mail"></i></a>
+      </div>
+      <p class="body-small">© 2026 <a href="admin.html" style="color: inherit; text-decoration: none; cursor: default;">Piyush Prajapati</a>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

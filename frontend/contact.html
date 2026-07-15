@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Piyush Prajapati </title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS & JS -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="api.js" defer></script>
+  <script src="app.js" defer></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-64);
+    }
+
+    @media (min-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    .form-success-toast {
+      display: none;
+      background-color: var(--color-success);
+      color: var(--color-void);
+      padding: var(--space-16);
+      border-radius: var(--radius-md);
+      margin-top: var(--space-24);
+      align-items: center;
+      gap: var(--space-8);
+      font-weight: 600;
+    }
+
+    .form-input.invalid,
+    .form-textarea.invalid {
+      border-color: var(--color-error);
+    }
+
+    .form-input.valid,
+    .form-textarea.valid {
+      border-color: var(--color-success);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar">
+    <div class="container navbar-inner">
+      <a href="home.html" class="nav-logo" aria-label="Home"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></a>
+
+      <div id="nav-links" class="nav-links">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="contact.html" class="btn btn-primary" style="margin-left: var(--space-16)">Contact</a>
+      </div>
+
+      <button id="hamburger" class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section" style="padding-top: calc(var(--space-96) + 80px);">
+      <div class="container reveal-up">
+        <h1 class="display mb-48">Contact</h1>
+
+        <div class="contact-grid">
+
+          <!-- Contact Form -->
+          <div>
+            <form id="contact-form" novalidate>
+              <div class="form-group">
+                <label for="name" class="form-label">Name <span style="color: var(--color-error)">*</span></label>
+                <input type="text" id="name" name="name" class="form-input" required aria-required="true">
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Email <span style="color: var(--color-error)">*</span></label>
+                <input type="email" id="email" name="email" class="form-input" required aria-required="true">
+              </div>
+
+              <div class="form-group">
+                <label for="company" class="form-label">Company / Role <span
+                    style="color: var(--color-text-muted); font-size: 11px;">(Optional)</span></label>
+                <input type="text" id="company" name="company" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">Message <span style="color: var(--color-error)">*</span></label>
+                <textarea id="message" name="message" class="form-textarea" required aria-required="true"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+
+            <div id="success-toast" class="form-success-toast">
+              <i data-lucide="check-circle" width="20"></i>
+              Message sent successfully! I'll get back to you within 24 hours.
+            </div>
+          </div>
+
+          <!-- Contact Info -->
+          <div>
+            <h3 class="mb-24">Direct Contact</h3>
+            <p class="body-large mb-32" style="color: var(--color-text-muted);">
+              Prefer to send an email directly? Feel free to reach out to the address below.
+            </p>
+
+            <div class="flex-col gap-16">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piyushprajapati292003@gmail.com" target="_blank" rel="noopener" class="flex items-center gap-16 link-amber">
+                <i data-lucide="mail"></i> piyushprajapati292003@gmail.com
+              </a>
+              <a href="https://www.linkedin.com/in/piyush1234567" target="_blank" class="flex items-center gap-16 link-amber">
+                <i data-lucide="linkedin"></i> LinkedIn
+              </a>
+              <a href="https://github.com/piyush29-pr" target="_blank" class="flex items-center gap-16 link-amber">
+                <i data-lucide="github"></i> GitHub
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="padding: var(--space-48) 0; text-align: center; border-top: 1px solid var(--color-border);">
+    <div class="container flex-col items-center gap-16">
+      <div class="nav-logo"><img src="images/navbar_logo.png" alt="Dev.Data Logo" style="height: 32px; width: auto; display: block;"></div>
+      <div class="flex gap-16">
+        <a href="https://github.com/piyush29-pr" target="_blank" aria-label="GitHub" class="link-amber"><i
+            data-lucide="github"></i></a>
+        <a href="https://www.linkedin.com/in/piyush1234567" target="_blank" aria-label="LinkedIn" class="link-amber"><i
+            data-lucide="linkedin"></i></a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piyushprajapati292003@gmail.com" target="_blank" rel="noopener" aria-label="Email" class="link-amber"><i
+            data-lucide="mail"></i></a>
+      </div>
+      <p class="body-small">© 2026 <a href="admin.html" style="color: inherit; text-decoration: none; cursor: default;">Piyush Prajapati</a>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Inline Form Validation logic
+    const form = document.getElementById('contact-form');
+    const inputs = form.querySelectorAll('input[required], textarea[required]');
+
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        if (input.checkValidity()) {
+          input.classList.remove('invalid');
+          input.classList.add('valid');
+        } else {
+          input.classList.remove('valid');
+          input.classList.add('invalid');
+        }
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!input.checkValidity()) {
+          input.classList.add('invalid');
+          isValid = false;
+        }
+      });
+
+      if (isValid) {
+        const btn = form.querySelector('button[type="submit"]');
+        btn.innerHTML = '<i data-lucide="loader" class="spinner"></i> Sending...';
+        btn.disabled = true;
+        lucide.createIcons();
+
+        const formData = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          company: document.getElementById('company').value,
+          message: document.getElementById('message').value
+        };
+
+        window.api.sendMessage(formData)
+          .then(() => {
+            form.style.display = 'none';
+            const toast = document.getElementById('success-toast');
+            toast.style.display = 'flex';
+          })
+          .catch((err) => {
+            alert('Failed to send message: ' + err.message);
+            btn.innerHTML = 'Send Message';
+            btn.disabled = false;
+          });
+      }
+    });
+  </script>
+</body>
+
+</html>
